@@ -1,0 +1,31 @@
+long zaman;
+long cm;
+
+int led = 11;
+int trigPin = 13;
+int echoPin = 12;
+
+void setup() {
+    pinMode(led, OUTPUT);
+    pinMode(trigPin, OUTPUT);
+    pinMode(echoPin, INPUT);
+    Serial.begin(9600);
+}
+
+void loop() {
+    digitalWrite(trigPin, LOW);
+    delayMicroseconds(5);
+    digitalWrite(trigPin, HIGH);
+    delayMicroseconds(10);
+    digitalWrite(trigPin, LOW);
+    zaman = pulseIn(echoPin, HIGH);
+    cm = (zaman / 29.1)/2;
+    if (cm < 15) {
+        digitalWrite(led, HIGH);
+    } else {
+        digitalWrite(led, LOW);
+    }
+    Serial.print("Uzaklik = ");
+    Serial.println(cm);
+    delay(500);
+}
